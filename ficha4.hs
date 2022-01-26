@@ -19,10 +19,18 @@ alltrue::[Bool]->Bool
 alltrue [] = True       --caso lista for vazia
 alltrue (x:xs) = if x == True then alltrue xs else False    --caso lista nao for vazia,verifica os elementos da lista se são todos true
 
+isTrue::[Bool]->Bool
+isTrue [] = True
+isTrue xs = [x | x<-xs, x == True] == xs
+
 --4.Define uma função que retorna uma lista com n elementos idênticos:
 identicos::Int->a->[a]
 identicos 0 _ = []      --se n for 0, retorna uma lista vazia
 identicos n x = x:identicos (n-1) x     --se n for diferente de 0, retorna uma lista com n elementos iguais a x
+
+idem:: Int->a->[a]
+idem 0 _ = []
+idem n x =[x | _<-[1..n]]
 
 --5.Define uma função que selecione um elemento de uma lista dado a posição:
 selectElement::[a]->Int->a
@@ -30,13 +38,32 @@ selectElement [] _ = error "Lista vazia"    --caso a lista tiver vazia retorna e
 selectElement (x:xs) 0 = x               --caso a posição seja 0 retorna o primeiro elemento
 selectElement (x:xs) n = selectElement xs (n-1) --caso a posição seja diferente de 0 retorna o elemento da posição n-1
 
+select::[a]->Int->a
+select [] _ = error "Lista vazia"
+select (x:xs) 0 = x
+
+
 --6. Define uma função que verifique se o elemento pertence á lista:
 isinlist::Eq a=>a->[a]->Bool
 isinlist _ [] = False    --caso a lista seja vazia retorna false
 isinlist x (y:ys) = if x == y then True else isinlist x ys   --caso a lista nao seja vazia, verifica se o elemento pertence a lista
+
+isinlist2::Eq a=>a->[a]->Bool
+isinlist2 x ys = elem x ys
+
 
 --7. Define uma função que agrupa elementos de duas lista em uma única lista. 
 agrupaLista::Eq a=>[a]->[a]->[a]
 agrupaLista [] _ = []    --caso a lista 1 for vazia retorna uma lista vazia
 agrupaLista _ [] = []    --caso a lista 2 for vazia retorna uma lista vazia
 agrupaLista (x:xs) (y:ys) = (x:xs) ++ (y:ys)  --caso a lista 1 e 2 nao sejam vazias, retorna a lista 1 juntado com a lista 2
+
+agrupaLista2 :: [a] -> [b] -> [(a,b)]
+agrupaLista2 [] _ = []      --Com recursão
+agrupaLista2 _ [] = []
+agrupaLista2 (x:xs) (y:ys) = (x,y):agrupaLista2 xs ys
+
+
+
+
+ --Elaborado Por Ruben Ferreiro-5383 Eisc 2 ano
